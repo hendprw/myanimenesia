@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Tentang Animenesia - Sejarah, Portofolio, dan Tim Inti Komunitas Anime Terbesar di Indonesia."/>
+  <title>Tentang Kami - Animenesia</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            background: "#0A0A14", 
+            surface: "#11111E",    
+            accent: "#00E5FF",      
+            accent2: "#FF00C1",
+            textLight: "#EAEAEA",   
+            textDark: "#A0A0B0",
+            success: "#00FF7F"
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;700&family=Source_Code_Pro:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --font-display: 'Orbitron', sans-serif;
+      --font-body: 'Rajdhani', sans-serif;
+      --font-mono: 'Source Code Pro', monospace;
+    }
+    
+    body {
+      background-color: var(--tw-colors-background);
+      color: var(--tw-colors-textLight);
+      font-family: var(--font-body);
+      font-weight: 500;
+    }
+    .font-display { font-family: var(--font-display); }
+    .font-mono { font-family: var(--font-mono); }
+    
+    .section-anim {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .section-anim.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* NAVBAR STYLES */
+    .navbar {
+      backdrop-filter: blur(16px);
+      background-color: rgba(10, 10, 20, 0.5);
+      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+    }
+    .nav-link {
+      position: relative;
+      transition: color 0.3s;
+      letter-spacing: 1px;
+    }
+    .nav-link:hover, .nav-link.active {
+        color: var(--tw-colors-accent);
+        text-shadow: 0 0 8px var(--tw-colors-accent);
+    }
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0%;
+        height: 2px;
+        background: var(--tw-colors-accent);
+        transition: width 0.3s ease-out;
+    }
+    .nav-link:hover::after, .nav-link.active::after {
+        width: 100%;
+    }
+
+    /* GFX Elements */
+    .section-wrapper { position: relative; padding: 6rem 0; }
+    .section-title { color: white; text-shadow: 0 0 8px var(--tw-colors-accent); margin-bottom: 3rem; }
+    .gfx-corners { position: absolute; inset: 2rem; pointer-events: none; }
+    .gfx-corners::before, .gfx-corners::after, .gfx-corners span::before, .gfx-corners span::after { content: ''; position: absolute; width: 40px; height: 40px; border: 2px solid var(--tw-colors-accent); opacity: 0.5; transition: opacity 0.3s; }
+    .section-wrapper:hover .gfx-corners::before, .section-wrapper:hover .gfx-corners::after, .section-wrapper:hover .gfx-corners span::before, .section-wrapper:hover .gfx-corners span::after { opacity: 1; }
+    .gfx-corners::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+    .gfx-corners::after { top: 0; right: 0; border-left: none; border-bottom: none; }
+    .gfx-corners span::before { bottom: 0; left: 0; border-right: none; border-top: none; }
+    .gfx-corners span::after { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+    /* Page Header */
+    .page-header {
+        padding-top: 10rem;
+        padding-bottom: 4rem;
+        background-image: linear-gradient(rgba(10,10,20,0.85), var(--tw-colors-background)), url('https://i.imgur.com/L4yvV6L.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    /* Timeline Section */
+    .timeline {
+        position: relative;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .timeline::after {
+        content: '';
+        position: absolute;
+        width: 4px;
+        background-color: var(--tw-colors-surface);
+        box-shadow: 0 0 15px var(--tw-colors-accent2);
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -2px;
+    }
+    .timeline-container {
+        padding: 10px 40px;
+        position: relative;
+        background-color: inherit;
+        width: 50%;
+    }
+    .timeline-container::after {
+        content: '';
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        right: -13px;
+        background-color: var(--tw-colors-accent);
+        border: 4px solid var(--tw-colors-surface);
+        top: 25px;
+        border-radius: 50%;
+        z-index: 1;
+        box-shadow: 0 0 20px var(--tw-colors-accent);
+        transition: transform 0.3s;
+    }
+    .timeline-container:hover::after {
+        transform: scale(1.2);
+    }
+    .timeline-left { left: 0; }
+    .timeline-right { left: 50%; }
+    .timeline-left::before {
+        content: " "; height: 0; position: absolute; top: 32px; width: 0; z-index: 1; right: 30px; border: medium solid var(--tw-colors-accent);
+        border-width: 10px 0 10px 10px; border-color: transparent transparent transparent var(--tw-colors-accent);
+    }
+    .timeline-right::before {
+        content: " "; height: 0; position: absolute; top: 32px; width: 0; z-index: 1; left: 30px; border: medium solid var(--tw-colors-accent);
+        border-width: 10px 10px 10px 0; border-color: transparent var(--tw-colors-accent) transparent transparent;
+    }
+    .timeline-right::after { left: -12px; }
+    .timeline-content {
+        padding: 20px 30px;
+        background-color: var(--tw-colors-surface);
+        position: relative;
+        border-radius: 6px;
+        border: 1px solid rgba(0,229,255,0.2);
+    }
+    @media screen and (max-width: 768px) {
+      .timeline::after { left: 31px; }
+      .timeline-container { width: 100%; padding-left: 70px; padding-right: 25px; }
+      .timeline-container::before { left: 60px; border-width: 10px 10px 10px 0; border-color: transparent var(--tw-colors-accent) transparent transparent; }
+      .timeline-left::after, .timeline-right::after { left: 18px; }
+      .timeline-right { left: 0%; }
+    }
+    
+    /* Staff Card */
+    .staff-card {
+        background: var(--tw-colors-surface);
+        border: 1px solid transparent;
+        transition: border-color 0.3s, transform 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+    .staff-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--tw-colors-accent);
+    }
+    .staff-card .social-links {
+        position: absolute;
+        bottom: -50px;
+        left: 0;
+        right: 0;
+        transition: bottom 0.3s ease-in-out;
+    }
+    .staff-card:hover .social-links {
+        bottom: 1.5rem; /* Corresponds to p-6 */
+    }
+    .staff-img {
+        filter: grayscale(1);
+        transition: filter 0.3s;
+    }
+    .staff-card:hover .staff-img {
+        filter: grayscale(0);
+    }
+    
+    /* Gallery */
+    .gallery-track { animation: scroll 60s linear infinite; }
+    @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .gallery-img { border: 2px solid transparent; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
+    .gallery-img:hover { transform: scale(1.05); border-color: var(--tw-colors-accent); box-shadow: 0 0 15px var(--tw-colors-accent); }
+
+    /* Footer */
+    footer { background-color: var(--tw-colors-surface); border-top: 1px solid rgba(0, 229, 255, 0.2); }
+  </style>
+</head>
+<body class="bg-background text-textLight">
+
+  <nav class="navbar fixed top-0 w-full z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <a href="index.html" class="text-2xl font-display font-bold tracking-wider text-white">
+          ANIMENESIA
+        </a>
+        <div class="hidden md:flex items-center space-x-8 text-base font-bold">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="aboutus.html" class="nav-link active">Tentang Kami</a>
+          <a href="index.html#anime-musiman" class="nav-link">Anime</a>
+          <a href="index.html#gabung-komunitas" class="nav-link">Gabung</a>
+        </div>
+        <div class="md:hidden">
+          <button id="menu-btn" class="text-accent focus:outline-none" aria-label="Buka menu">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-screen bg-background/95 backdrop-blur-xl z-50 flex-col items-center justify-center space-y-8 md:hidden">
+        <button id="close-menu" class="absolute top-6 right-6 text-accent" aria-label="Tutup menu">
+          <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+        <a href="index.html" class="block text-2xl font-bold hover:text-accent" onclick="toggleMenu()">Home</a>
+        <a href="aboutus.html" class="block text-2xl font-bold text-accent" onclick="toggleMenu()">Tentang Kami</a>
+        <a href="index.html#anime-musiman" class="block text-2xl font-bold hover:text-accent" onclick="toggleMenu()">Anime</a>
+        <a href="index.html#gabung-komunitas" class="block text-2xl font-bold hover:text-accent" onclick="toggleMenu()">Gabung</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="page-header text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="font-display text-4xl sm:text-6xl font-bold text-white shadow-accent" style="text-shadow: 0 0 15px var(--tw-colors-accent);">[ PROFIL KOMUNITAS ]</h1>
+            <p class="text-lg text-textDark mt-2">Sejarah, pencapaian, dan orang-orang di balik Animenesia.</p>
+        </div>
+    </header>
+    
+    <section id="visimisi" class="section-wrapper bg-background">
+        <div class="container mx-auto px-4 relative">
+             <div class="gfx-corners"><span></span></div>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="section-anim">
+                    <h2 class="font-display text-3xl text-accent mb-4">// DIRECTIVE_01: VISI</h2>
+                    <p class="text-lg text-textLight leading-relaxed">Menjadi episentrum dan rumah utama bagi seluruh penggemar anime dan kultur pop Jepang di Indonesia, tempat di mana kreativitas, persahabatan, dan apresiasi dapat tumbuh tanpa batas.</p>
+                </div>
+                 <div class="section-anim" style="transition-delay: 0.1s;">
+                    <h2 class="font-display text-3xl text-accent2 mb-4">// DIRECTIVE_02: MISI</h2>
+                    <ul class="list-disc list-inside text-lg text-textLight leading-relaxed space-y-2">
+                        <li>Menyediakan platform yang aman dan inklusif untuk berdiskusi.</li>
+                        <li>Mengadakan event online dan offline yang berkualitas dan berkesan.</li>
+                        <li>Mendukung dan mempromosikan karya-karya kreatif dari anggota.</li>
+                        <li>Menjadi jembatan antara komunitas dengan industri kreatif.</li>
+                    </ul>
+                </div>
+             </div>
+        </div>
+    </section>
+
+    <section id="sejarah" class="section-wrapper bg-surface">
+        <div class="container mx-auto px-4 relative">
+            <div class="gfx-corners"><span></span></div>
+            <h2 class="section-title text-center font-display text-3xl sm:text-4xl font-bold">ARSIP SEJARAH</h2>
+            <div class="timeline">
+                <div class="timeline-container timeline-left section-anim">
+                    <div class="timeline-content">
+                        <h3 class="font-display text-xl text-accent">2022 - Pendirian</h3>
+                        <p class="text-textDark mt-2">Animenesia didirikan dari sebuah grup diskusi kecil di Surabaya dengan visi menciptakan wadah positif bagi penggemar anime di Indonesia.</p>
+                    </div>
+                </div>
+                <div class="timeline-container timeline-right section-anim">
+                    <div class="timeline-content">
+                        <h3 class="font-display text-xl text-accent">2023 - Event Offline Perdana</h3>
+                        <p class="text-textDark mt-2">Sukses menyelenggarakan "Animenesia Gathering Vol. 1", menandai langkah pertama kami di dunia event pop kultur.</p>
+                    </div>
+                </div>
+                 <div class="timeline-container timeline-left section-anim">
+                    <div class="timeline-content">
+                        <h3 class="font-display text-xl text-accent">2024 - Pencapaian 5,000 Anggota</h3>
+                        <p class="text-textDark mt-2">Server Discord kami mencapai 5,000 anggota aktif, menjadi salah satu komunitas dengan pertumbuhan tercepat.</p>
+                    </div>
+                </div>
+                <div class="timeline-container timeline-right section-anim">
+                    <div class="timeline-content">
+                        <h3 class="font-display text-xl text-accent">2025 - Peluncuran #NewEra</h3>
+                        <p class="text-textDark mt-2">Website Animenesia.id diluncurkan sebagai pusat informasi, database, dan gerbang utama untuk semua aktivitas komunitas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portofolio" class="section-wrapper bg-background">
+        <div class="container mx-auto px-4 relative">
+            <div class="gfx-corners"><span></span></div>
+            <h2 class="section-title text-center font-display text-3xl sm:text-4xl font-bold">ARSIP MISI</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="interactive-card rounded-lg overflow-hidden section-anim">
+                    <img src="https://i.imgur.com/8i2t1Q2.jpg" alt="Project 1" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <p class="font-mono text-sm text-accent">[EVENT ORGANIZING]</p>
+                        <h3 class="font-display text-xl text-white my-2">KOLABORASI BOOTH COMIFURO</h3>
+                        <p class="text-textDark text-sm">Berhasil menjalankan booth kolaborasi dengan para kreator anggota, menampilkan dan menjual merchandise orisinal serta fan-art, menarik ratusan pengunjung.</p>
+                    </div>
+                </div>
+                 <div class="interactive-card rounded-lg overflow-hidden section-anim" style="transition-delay: 0.1s;">
+                    <img src="https://i.imgur.com/k2jYg0E.jpg" alt="Project 2" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <p class="font-mono text-sm text-accent">[KONTEN KREATIF]</p>
+                        <h3 class="font-display text-xl text-white my-2">PRODUKSI AMV "NEXUS"</h3>
+                        <p class="text-textDark text-sm">Memproduksi Anime Music Video (AMV) orisinal yang dikerjakan sepenuhnya oleh tim kreatif internal dan mendapatkan puluhan ribu view di YouTube.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="anggota" class="section-wrapper bg-surface">
+        <div class="container mx-auto px-4 relative">
+            <div class="gfx-corners"><span></span></div>
+            <h2 class="section-title text-center font-display text-3xl sm:text-4xl font-bold">JAJARAN AGEN INTI</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="staff-card rounded-lg text-center p-6 section-anim">
+                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Nama Anggota" class="staff-img w-32 h-32 mx-auto rounded-full mb-4 border-2 border-accent">
+                    <h3 class="font-display text-white text-xl">Kaito "Kai" Tanaka</h3>
+                    <p class="font-mono text-accent text-sm tracking-widest">FOUNDER</p>
+                    <div class="social-links flex justify-center gap-4 mt-4 text-textDark text-xl pb-6">
+                        <a href="#" class="hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="staff-card rounded-lg text-center p-6 section-anim" style="transition-delay: 0.1s;">
+                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026705d" alt="Nama Anggota" class="staff-img w-32 h-32 mx-auto rounded-full mb-4 border-2 border-accent">
+                    <h3 class="font-display text-white text-xl">Yuki Akiyama</h3>
+                    <p class="font-mono text-accent text-sm tracking-widest">EVENT COORDINATOR</p>
+                     <div class="social-links flex justify-center gap-4 mt-4 text-textDark text-xl pb-6">
+                        <a href="#" class="hover:text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                 <div class="staff-card rounded-lg text-center p-6 section-anim" style="transition-delay: 0.2s;">
+                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026706d" alt="Nama Anggota" class="staff-img w-32 h-32 mx-auto rounded-full mb-4 border-2 border-accent">
+                    <h3 class="font-display text-white text-xl">Renaldi "Ren" S.</h3>
+                    <p class="font-mono text-accent text-sm tracking-widest">HEAD MODERATOR</p>
+                     <div class="social-links flex justify-center gap-4 mt-4 text-textDark text-xl pb-6">
+                        <a href="#" class="hover:text-white"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                 <div class="staff-card rounded-lg text-center p-6 section-anim" style="transition-delay: 0.3s;">
+                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026707d" alt="Nama Anggota" class="staff-img w-32 h-32 mx-auto rounded-full mb-4 border-2 border-accent">
+                    <h3 class="font-display text-white text-xl">Aiko "Ai" Lestari</h3>
+                    <p class="font-mono text-accent text-sm tracking-widest">CREATIVE LEAD</p>
+                     <div class="social-links flex justify-center gap-4 mt-4 text-textDark text-xl pb-6">
+                        <a href="#" class="hover:text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="galeri" class="section-wrapper bg-background">
+        <div class="max-w-full mx-auto text-center">
+            <h2 class="section-title font-display text-3xl sm:text-4xl font-bold">ARSIP MEMORI</h2>
+            <div class="overflow-hidden relative" style="-webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);">
+                <div class="flex gap-4 gallery-track">
+                    <img src="/img/galeri1.jpg" alt="Galeri 1" class="gallery-img h-64 rounded-lg"/>
+                    <img src="/img/galeri2.jpg" alt="Galeri 2" class="gallery-img h-64 rounded-lg"/>
+                    <img src="/img/galeri3.jpg" alt="Galeri 3" class="gallery-img h-64 rounded-lg"/>
+                    <img src="/img/galeri4.jpg" alt="Galeri 4" class="gallery-img h-64 rounded-lg"/>
+                    <img src="/img/galeri5.jpg" alt="Galeri 5" class="gallery-img h-64 rounded-lg"/>
+                    <img src="/img/galeri6.jpg" alt="Galeri 6" class="gallery-img h-64 rounded-lg"/>
+                    <img src="/img/galeri1.jpg" alt="Galeri 1" class="gallery-img h-64 rounded-lg"/>
+                    <img src="/img/galeri2.jpg" alt="Galeri 2" class="gallery-img h-64 rounded-lg"/>
+                    <img src="/img/galeri3.jpg" alt="Galeri 3" class="gallery-img h-64 rounded-lg"/>
+                    <img src="/img/galeri4.jpg" alt="Galeri 4" class="gallery-img h-64 rounded-lg"/>
+                    <img src="/img/galeri5.jpg" alt="Galeri 5" class="gallery-img h-64 rounded-lg"/>
+                    <img src="/img/galeri6.jpg" alt="Galeri 6" class="gallery-img h-64 rounded-lg"/>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  </main>
+
+  <footer class="section-wrapper bg-surface border-t-2 border-accent/30 shadow-[0_-4px_15px_-5px_rgba(0,229,255,0.2)]">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center sm:text-left">
+            <div class="space-y-4">
+                <h3 class="font-display text-2xl font-bold text-white">ANIMENESIA</h3>
+                <p class="text-textDark text-sm">
+                    Gerbang utama bagi para penggemar anime dan kultur pop di Indonesia untuk terhubung, berbagi, dan berkreasi bersama.
+                </p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="font-display font-bold text-accent tracking-wider">NAVIGASI</h4>
+                <ul class="space-y-2 text-textDark">
+                    <li><a href="index.html#kegiatan" class="hover:text-white transition-colors">Kegiatan</a></li>
+                    <li><a href="index.html#anime-musiman" class="hover:text-white transition-colors">Database Anime</a></li>
+                    <li><a href="index.html#aset" class="hover:text-white transition-colors">Aset Digital</a></li>
+                    <li><a href="index.html#partner" class="hover:text-white transition-colors">Partner</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="font-display font-bold text-accent tracking-wider">KOMUNITAS</h4>
+                <ul class="space-y-2 text-textDark">
+                    <li><a href="#" class="hover:text-white transition-colors flex items-center justify-center sm:justify-start gap-2"><i class="fa-brands fa-discord"></i> Server Discord</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors flex items-center justify-center sm:justify-start gap-2"><i class="fa-brands fa-whatsapp"></i> Grup WhatsApp</a></li>
+                    <li><a href="index.html#gabung-komunitas" class="hover:text-white transition-colors">Semua Kanal</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="font-display font-bold text-accent tracking-wider">IKUTI KAMI</h4>
+                <div class="flex justify-center sm:justify-start gap-5 mt-2 text-2xl">
+                  <a href="#" class="text-textDark hover:text-white hover:scale-110 transition-all" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                  <a href="#" class="hover:text-white hover:scale-110 transition-all" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                  <a href="#" class="hover:text-white hover:scale-110 transition-all" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-sm text-textDark mt-12 border-t border-accent/20 pt-6">
+            © <span id="copyright-year">2025</span> Animenesia
+        </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Mobile Menu Toggle ---
+        const menuBtn = document.getElementById('menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            document.body.classList.toggle('overflow-hidden');
+        }
+        if (menuBtn) menuBtn.onclick = toggleMenu;
+        if (closeMenuBtn) closeMenuBtn.onclick = toggleMenu;
+        
+        // --- Scroll Reveal Animation ---
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.section-anim').forEach(el => {
+            scrollObserver.observe(el);
+        });
+
+        // --- Gallery infinite scroll ---
+        const container = document.querySelector('.gallery-track');
+        if (container) {
+            const items = Array.from(container.children);
+            items.forEach(item => {
+              const clone = item.cloneNode(true);
+              clone.setAttribute('aria-hidden', 'true');
+              container.appendChild(clone);
+            });
+        }
+
+        // --- Copyright Year ---
+        const copyrightYear = document.getElementById('copyright-year');
+        if(copyrightYear) {
+            copyrightYear.textContent = new Date().getFullYear();
+        }
+    });
+  </script>
+</body>
+</html>

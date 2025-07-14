@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><title>Autentikasi Berhasil</title></head>
+<body>
+    Mengarahkan ke dashboard...
+    <script>
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        const token = params.get('token');
+        if (token) {
+            localStorage.setItem('authToken', token);
+            window.location.replace('/dashboard');
+        } else {
+            window.location.replace('/login');
+        }
+    </script>
+</body>
+</html>

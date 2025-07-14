@@ -1,0 +1,282 @@
+/* Custom Styles for Professional Dashboard */
+
+/* Styling untuk item menu di sidebar */
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    color: #d1d5db; /* gray-300 */
+    font-weight: 500;
+     gap: 0.75rem; /* Tambahkan ini untuk memberi jarak antar item flex */
+}
+
+.menu-item i {
+    /* Hapus margin-right dari sini */
+    width: 1.25rem; 
+    height: 1.25rem; 
+}
+
+.menu-item:hover {
+    background-color: #374151; /* gray-700 */
+    color: #ffffff;
+}
+.menu-item.active {
+    background-color: #4f46e5; /* indigo-600 */
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3), 0 2px 4px -2px rgba(79, 70, 229, 0.2);
+}
+.menu-item i {
+    margin-right: 0.75rem;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Styling untuk input form */
+.input-group {
+    margin-bottom: 1.25rem;
+}
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #9ca3af; /* gray-400 */
+}
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid #4b5563; /* gray-600 */
+    border-radius: 0.375rem;
+    background-color: #374151; /* gray-700 */
+    color: #e5e7eb; /* gray-200 */
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: #6366f1; /* indigo-500 */
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.4);
+}
+
+/* Styling untuk tombol aksi umum */
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: white;
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 0.375rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+.action-btn:hover {
+    transform: translateY(-1px);
+}
+.action-btn:active {
+    transform: translateY(0);
+}
+
+/* Styling untuk tabel */
+.th-cell {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    color: #9ca3af; /* gray-400 */
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+.td-cell {
+    padding: 1rem 1.5rem;
+    color: #d1d5db; /* gray-300 */
+}
+
+/* Styling untuk kartu statistik */
+.stat-card {
+    background-color: #1f2937; /* gray-800 */
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+.stat-icon {
+    flex-shrink: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+.stat-label {
+    font-size: 0.875rem;
+    color: #9ca3af; /* gray-400 */
+}
+.stat-value {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #f3f4f6; /* gray-100 */
+}
+
+/* style.css (TAMBAHAN) */
+
+/* Styling untuk Dropdown Aksi di File Manager */
+
+/* style.css (TAMBAHAN) */
+/* style.css (TAMBAHAN) */
+
+/* style.css (TAMBAHAN) */
+.action-menu-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+}
+.action-dropdown {
+    position: absolute;
+    right: 1.5rem;
+    top: 0;
+    background-color: #374151;
+    border: 1px solid #4b5563;
+    border-radius: 0.375rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2);
+    z-index: 20;
+    width: 160px;
+    overflow: hidden;
+    display: none;
+}
+.action-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.875rem;
+    color: #d1d5db;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    background: none;
+    border: none;
+}
+.action-dropdown-item:hover {
+    background-color: #4f46e5;
+    color: white;
+}
+.action-dropdown-item i {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* style.css (TAMBAHAN UNTUK MENU AKSI) */
+
+/* Styling untuk Dropdown Aksi di File Manager */
+.action-menu-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+}
+.action-dropdown {
+    position: absolute;
+    right: 1.5rem; /* Posisi di sebelah kiri tombol ... */
+    top: 0;
+    background-color: #374151; /* gray-700 */
+    border: 1px solid #4b5563; /* gray-600 */
+    border-radius: 0.375rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+    z-index: 20;
+    width: 160px;
+    overflow: hidden;
+    display: none; /* Sembunyi secara default */
+}
+.action-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.875rem;
+    color: #d1d5db; /* gray-300 */
+    transition: background-color 0.2s;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    background: none;
+    border: none;
+}
+.action-dropdown-item:hover {
+    background-color: #4f46e5; /* indigo-600 */
+    color: white;
+}
+.action-dropdown-item i {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* style.css (TAMBAHAN) */
+
+/* Styling untuk baris file/folder yang dipilih */
+.file-row.selected {
+    background-color: rgba(79, 70, 229, 0.2); /* Warna indigo transparan */
+    border-left: 4px solid #4f46e5; /* Border kiri sebagai indikator */
+}
+/* Menghapus padding kiri default agar border terlihat bagus */
+.file-row.selected .td-cell:first-child {
+    padding-left: calc(1.5rem - 4px);
+}
+
+/* ================================= */
+/* STYLES RESPONSIVE UNTUK MOBILE    */
+/* ================================= */
+@media (max-width: 768px) {
+    /* Mengatur ulang padding utama di konten agar tidak terlalu lebar */
+    .p-6 {
+        padding: 1rem;
+    }
+
+    /* Membuat kartu statistik menjadi satu kolom */
+    #dashboard-utama .grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Menyembunyikan beberapa kolom di tabel agar tidak sempit */
+    .table-responsive .th-cell:nth-child(3),
+    .table-responsive .td-cell:nth-child(3),
+    .table-responsive .th-cell:nth-child(4),
+    .table-responsive .td-cell:nth-child(4) {
+        display: none;
+    }
+
+    /* Menyesuaikan ukuran font dan padding di tabel */
+    .th-cell, .td-cell {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    /* Membuat tombol aksi di atas menjadi lebih kecil */
+    #file-manager-actions .action-btn,
+    #keuangan-section .action-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+    }
+    
+    #file-manager-actions .action-btn span,
+    #keuangan-section .action-btn span {
+        display: none; /* Sembunyikan teks tombol, hanya ikon */
+    }
+}
+
+/* style.css (Tambahan) */
+.card-ui {
+    background-color: #1f2937; /* gray-800 */
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}

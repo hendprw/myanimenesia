@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Animenesia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Rajdhani', sans-serif;
+        }
+        body {
+            background-color: #0A0A14;
+            font-family: var(--font-body);
+        }
+        .font-display { font-family: var(--font-display); }
+        .bg-grid-animated::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(0, 229, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 229, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: pan-grid 30s linear infinite;
+            opacity: 0.5;
+        }
+        @keyframes pan-grid { from { background-position: 0 0; } to { background-position: -50px -50px; } }
+        .login-panel {
+            background-color: rgba(17, 17, 30, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            animation: slide-up-fade-in 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+            opacity: 0;
+        }
+        @keyframes slide-up-fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .form-input {
+            background-color: rgba(10, 10, 20, 0.5);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+        }
+        .form-input:focus {
+            border-color: #00E5FF;
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #00E5FF, #FF00C1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 229, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-textLight">
+    <div class="relative min-h-screen flex items-center justify-center bg-grid-animated bg-cover bg-center p-4" style="background-image: linear-gradient(rgba(10,10,20,0.85), var(--tw-colors-background)), url('https://i.imgur.com/58s1qM1.jpg');">
+        <div class="login-panel w-full max-w-md p-8 rounded-lg border border-accent/30 shadow-2xl shadow-accent/10">
+            <div class="text-center mb-8">
+                <h1 class="font-display text-4xl font-bold text-white">MyAnimenesia</h1>
+                <p class="text-white">ACCESS CONTROL</p>
+            </div>
+            <form id="loginForm">
+                <div class="mb-6">
+                    <label for="email" class="block mb-2 text-sm font-bold text-white tracking-wider">EMAIL</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-white">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        <input type="email" id="email" name="email" class="form-input w-full py-3 pl-10 pr-4 rounded-md focus:outline-none" placeholder="pengurus@animenesia.id" required>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label for="password" class="block mb-2 text-sm font-bold text-white tracking-wider">PASSWORD</label>
+                     <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-white">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        <input type="password" id="password" name="password" class="form-input w-full py-3 pl-10 pr-4 rounded-md focus:outline-none" placeholder="************" required>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <button type="submit" class="submit-btn w-full py-3 px-4 font-display text-background font-bold rounded-md">
+                        [ LOGIN ]
+                    </button>
+                </div>
+            </form>
+            <div class="my-4 text-center text-gray-400">ATAU</div>
+<a href="/api/auth/google" class="w-full flex items-center justify-center gap-3 py-3 px-4 bg-white text-gray-700 font-semibold rounded-md shadow-md hover:bg-gray-100 transition-colors">
+    <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6" alt="Google icon">
+    <span>Login dengan Google</span>
+</a>
+            <p id="errorMessage" class="text-center text-red-400 text-sm h-4"></p>
+            <div class="text-center mt-6 text-sm">
+                <p class="text-white">Belum punya akun? <a href="/register" class="font-bold text-accent hover:underline">Daftar di sini</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if (localStorage.getItem('authToken')) {
+            window.location.href = '/dashboard';
+        }
+
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMessage.textContent = '';
+            const submitButton = e.target.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            submitButton.textContent = 'MEMPROSES...';
+
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Terjadi kesalahan.');
+                }
+                
+                localStorage.setItem('authToken', data.token);
+                window.location.href = '/dashboard';
+
+            } catch (error) {
+                errorMessage.textContent = error.message;
+                submitButton.disabled = false;
+                submitButton.textContent = '[ LOGIN ]';
+            }
+        });
+    </script>
+</body>
+</html>

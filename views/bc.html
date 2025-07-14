@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Komunitas Penggemar Anime Terbesar di Indonesia. Diskusi, Jejepangan, nobar, dan banyak kegiatan seru anime lainnya!"/>
+  <title>Animenesia - Komunitas Anime Indonesia [MODE:SANGAR]</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            background: "#0A0A0A", // Even darker background
+            surface: "#111111",    // Surface color
+            accent: "#00f7ff",      // Electric Cyan Accent
+            "accent-glow": "rgba(0, 247, 255, 0.5)",
+            danger: "#ff004c",      // Aggressive Red/Pink
+            "danger-glow": "rgba(255, 0, 76, 0.4)",
+            textLight: "#a1a1aa",
+            textDark: "#e2e8f0"
+          },
+          animation: {
+            'glitch': 'glitch-anim 1.5s infinite',
+            'flicker': 'flicker-anim 3s infinite',
+            'scanline': 'scanline-anim 10s linear infinite',
+          },
+          keyframes: {
+            'glitch-anim': {
+              '0%': { transform: 'translate(0)', opacity: '1' },
+              '15%': { transform: 'translate(-2px, 2px)', opacity: '0.8' },
+              '30%': { transform: 'translate(2px, -2px)', opacity: '1' },
+              '45%': { transform: 'translate(-2px, -2px)', opacity: '0.9' },
+              '60%': { transform: 'translate(2px, 2px)', opacity: '1' },
+              '75%': { transform: 'translate(-2px, 2px)', opacity: '0.8' },
+              '90%': { transform: 'translate(0)', opacity: '1' },
+              '100%': { transform: 'translate(0)', opacity: '1' },
+            },
+            'flicker-anim': {
+              '0%, 100%': { opacity: 1 },
+              '50%': { opacity: 0.7 },
+              '52%': { opacity: 1 },
+              '55%': { opacity: 0.5 },
+              '56%': { opacity: 1 },
+            },
+            'scanline-anim': {
+              '0%': { transform: 'translateY(0)' },
+              '100%': { transform: 'translateY(100px)' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Orbitron:wght@900&family=Roboto+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    /* public/css/custom.css (MODE:SANGAR) */
+
+    :root {
+      --accent: #00f7ff;
+      --danger: #ff004c;
+      --bg-color: #0A0A0A;
+    }
+    
+    /* --- Base & Font --- */
+    body {
+      background-color: var(--bg-color);
+      font-family: 'Roboto Mono', monospace; /* Monospace for tech feel */
+      color: #e2e8f0;
+    }
+    .font-heading { font-family: 'Orbitron', sans-serif; text-transform: uppercase; }
+    .font-subheading { font-family: 'Chakra Petch', sans-serif; text-transform: uppercase; }
+
+    /* --- GLOBAL EFFECTS --- */
+    .global-effects {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    .vignette-overlay {
+      box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.8);
+    }
+    .scanlines-overlay {
+      background: repeating-linear-gradient(transparent, transparent 2px, rgba(0,0,0,0.5) 2px, rgba(0,0,0,0.5) 3px);
+      background-size: 100% 100px;
+      animation: scanline-anim 15s linear infinite;
+    }
+
+    /* --- Navbar Effects --- */
+    .navbar-blur {
+      backdrop-filter: blur(10px) saturate(150%);
+      -webkit-backdrop-filter: blur(10px) saturate(150%);
+      background-color: rgba(10, 10, 10, 0.6);
+      border-bottom: 1px solid rgba(0, 247, 255, 0.2);
+      box-shadow: 0 5px 20px rgba(0, 247, 255, 0.1);
+    }
+
+    /* --- Glitch Effect --- */
+    .glitch {
+      position: relative;
+      text-shadow: 0 0 5px var(--accent-glow), 0 0 10px var(--accent-glow), 0 0 20px var(--danger-glow);
+    }
+    .glitch:before, .glitch:after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-color);
+      overflow: hidden;
+      clip-path: inset(50% 0 50% 0);
+    }
+    .glitch:before {
+      left: -2px;
+      text-shadow: -2px 0 var(--danger);
+      animation: glitch-anim 2.5s infinite linear alternate-reverse;
+    }
+    .glitch:after {
+      left: 2px;
+      text-shadow: -2px 0 var(--accent);
+      animation: glitch-anim 2s infinite linear alternate-reverse;
+    }
+
+    /* --- HUD Elements --- */
+    .hud-border {
+      position: relative;
+      padding: 1rem;
+      border: 1px solid rgba(0, 247, 255, 0.2);
+    }
+    .hud-border::before, .hud-border::after {
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      border-color: var(--accent);
+      border-style: solid;
+      animation: flicker-anim 4s infinite;
+    }
+    .hud-border::before { top: -5px; left: -5px; border-width: 2px 0 0 2px; }
+    .hud-border::after { bottom: -5px; right: -5px; border-width: 0 2px 2px 0; }
+
+    /* --- Angled Cards --- */
+    .angled-card {
+      background: linear-gradient(145deg, rgba(30,30,30,0.6), rgba(15,15,15,0.6));
+      backdrop-filter: blur(5px);
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+      border: 1px solid rgba(0, 247, 255, 0.2);
+      transition: all 0.3s ease-in-out;
+      position: relative;
+    }
+    .angled-card:hover {
+      transform: translateY(-5px) skewX(-2deg);
+      background: linear-gradient(145deg, rgba(0, 247, 255, 0.1), transparent);
+      border-color: var(--accent);
+      box-shadow: 0 10px 30px rgba(0, 247, 255, 0.1);
+    }
+
+    /* --- Gallery --- */
+    .galeri-container {
+      transform: skewX(-10deg) translateX(-10%);
+      width: 120%;
+      -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+    }
+    .galeri-scroll { animation: galeri-move 40s linear infinite; }
+    @keyframes galeri-move {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .galeri-img {
+      transition: all 0.4s ease;
+      filter: saturate(0.5);
+    }
+    .galeri-img:hover {
+      transform: scale(1.1) rotate(3deg);
+      filter: saturate(1) drop-shadow(0 0 15px var(--accent-glow));
+    }
+
+    /* --- Partner & Brand Images --- */
+    .brand-partner-img {
+      filter: brightness(0.6) grayscale(1) contrast(2);
+      opacity: 0.6;
+      transition: all 0.3s ease;
+    }
+    .brand-partner-img:hover {
+      filter: brightness(1) grayscale(0) contrast(1);
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    /* --- CTA Button --- */
+    .cta-button {
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent);
+      box-shadow: 0 0 15px var(--accent-glow), inset 0 0 15px var(--accent-glow);
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+      transition: all 0.3s ease;
+    }
+    .cta-button:hover {
+      background: var(--accent);
+      color: var(--bg-color);
+      box-shadow: 0 0 25px var(--accent-glow);
+    }
+    
+    /* --- Staggered Animation Reveal --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .reveal-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="bg-background antialiased overflow-x-hidden">
+
+  <div class="global-effects">
+    <div class="vignette-overlay"></div>
+    <div class="scanlines-overlay"></div>
+  </div>
+
+  <nav class="navbar-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <a href="/" class="text-2xl font-heading tracking-widest text-accent hover:animate-glitch">
+          Animenesia_
+        </a>
+        <div class="hidden md:flex items-center space-x-8 font-subheading text-lg">
+          <a href="#kegiatan" class="hover:text-accent transition-colors duration-300">[Kegiatan]</a>
+          <a href="#brand" class="hover:text-accent transition-colors duration-300">[Partner]</a>
+          <a href="#galeri" class="hover:text-accent transition-colors duration-300">[Galeri]</a>
+        </div>
+        <div class="md:hidden">
+          <button id="menu-btn" class="text-accent hover:text-white focus:outline-none" aria-label="Buka menu">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section id="pengenalan" class="relative min-h-screen flex items-center justify-center text-white text-center overflow-hidden">
+      <div class="absolute inset-0 bg-[url('https://i.pinimg.com/originals/b6/2a/3e/b62a3e9c5225a1a1f7c7849c470a273e.gif')] bg-cover bg-center opacity-25 mix-blend-color-dodge animate-flicker"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background"></div>
+      
+      <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+        <div class="absolute -top-10 -left-10 w-20 h-20 border-l-2 border-t-2 border-accent/50 animate-flicker"></div>
+        <div class="absolute -bottom-10 -right-10 w-20 h-20 border-r-2 border-b-2 border-accent/50 animate-flicker"></div>
+
+        <h2 class="text-4xl sm:text-6xl md:text-8xl font-heading mb-4 tracking-wider glitch" data-text="SELAMAT DATANG">SELAMAT DATANG</h2>
+        <p class="font-subheading text-lg md:text-2xl text-accent mb-8 drop-shadow-[0_0_5px_var(--tw-shadow-color)] shadow-accent">KE MARKAS BESAR ANIMENESIA</p>
+        <a href="#kegiatan" class="cta-button font-subheading text-xl px-12 py-4">
+          :: MULAI MISI ::
+        </a>
+      </div>
+    </section>
+
+    <section id="visi-misi" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto reveal">
+        <div class="hud-border">
+          <h3 class="font-heading text-3xl sm:text-4xl mb-6 text-accent text-center glitch" data-text="SYSTEM.LOG">SYSTEM.LOG</h3>
+          <p class="mb-4 text-base sm:text-lg text-textLight leading-relaxed">
+            <span class="text-accent">> Booting Animenesia Core... Done.</span><br>
+            <span class="text-accent">> Status:</span> Komunitas penggemar anime terbesar dan paling aktif di Indonesia. Wadah inklusif untuk semua agent, baik pemula (rookie) maupun veteran. Misi utama: membangun ekosistem positif melalui diskusi, nobar (ops), dan berbagai event kreatif.<br><br>
+            <span class="text-accent">> Directive:</span> Anime bukan sekadar hiburan. Ia adalah kode sumber inspirasi, kreativitas, dan persahabatan. Bersama Animenesia, agent dapat terhubung, berevolusi, dan berkontribusi pada industri kreatif.
+            <span class="text-accent animate-ping">_</span>
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    <section id="kegiatan" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-surface">
+      <div class="max-w-6xl mx-auto">
+        <h3 class="font-heading text-3xl sm:text-4xl font-bold mb-12 text-center text-accent reveal glitch" data-text="PROTOKOL AKTIF">PROTOKOL AKTIF</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <div class="angled-card p-6 text-center reveal">
+            <h4 class="font-subheading text-xl mb-2 text-accent">Diskusi Taktis Mingguan</h4>
+            <p class="text-textLight text-sm">Menganalisis dan membedah teori anime terbaru setiap minggu. Sesi berbagi intelijen.</p>
+          </div>
+          
+          <div class="angled-card p-6 text-center reveal" style="transition-delay: 150ms;">
+            <h4 class="font-subheading text-xl mb-2 text-accent">Event Organizer (EO)</h4>
+            <p class="text-textLight text-sm">Menggelar operasi Jejepangan skala besar & aliansi antar komunitas.</p>
+          </div>
+          
+          <div class="angled-card p-6 text-center reveal" style="transition-delay: 300ms;">
+            <h4 class="font-subheading text-xl mb-2 text-accent">Operasi Nonton Bareng</h4>
+            <p class="text-textLight text-sm">Sinkronisasi nonton anime bersama, baik secara online (digital) maupun offline (in-person).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="galeri" class="py-16 sm:py-24 bg-background overflow-hidden">
+      <div class="text-center mb-12 reveal">
+        <h3 class="font-heading text-3xl sm:text-4xl font-bold text-accent glitch" data-text="ARSIP VISUAL">ARSIP VISUAL</h3>
+      </div>
+      <div class="galeri-container">
+        <div id="galeri-container" class="inline-flex gap-6 galeri-scroll">
+          <img src="/img/galeri1.jpg" alt="Galeri Kegiatan Animenesia 1" class="rounded-lg shadow-lg w-72 h-72 object-cover inline-block border-2 border-accent/20 galeri-img" />
+          <img src="/img/galeri2.jpg" alt="Galeri Kegiatan Animenesia 2" class="rounded-lg shadow-lg w-72 h-72 object-cover inline-block border-2 border-accent/20 galeri-img" />
+          <img src="/img/galeri3.jpg" alt="Galeri Kegiatan Animenesia 3" class="rounded-lg shadow-lg w-72 h-72 object-cover inline-block border-2 border-accent/20 galeri-img" />
+          <img src="/img/galeri4.jpg" alt="Galeri Kegiatan Animenesia 4" class="rounded-lg shadow-lg w-72 h-72 object-cover inline-block border-2 border-accent/20 galeri-img" />
+          <img src="/img/galeri5.jpg" alt="Galeri Kegiatan Animenesia 5" class="rounded-lg shadow-lg w-72 h-72 object-cover inline-block border-2 border-accent/20 galeri-img" />
+        </div>
+      </div>
+    </section>
+
+    <section id="brand" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-surface">
+        <div class="max-w-5xl mx-auto text-center reveal">
+            <h3 class="font-heading text-3xl sm:text-4xl font-bold mb-4 text-accent glitch" data-text="Aliansi Strategis">Aliansi Strategis</h3>
+            <p class="font-subheading text-lg mb-12 text-textLight">Brand & Media Partner</p>
+            <div class="flex flex-wrap justify-center items-center gap-12 md:gap-16">
+              <img src="https://kyou.id/static/img/branding.png" class="h-10 brand-partner-img" alt="Kyou ID"/>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/IQiyi_logo.svg/640px-IQiyi_logo.svg.png" class="h-10 brand-partner-img" alt="IQiyi"/>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Crunchyroll_Logo.svg" class="h-10 brand-partner-img" alt="Crunchyroll"/>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Netflix_logo.svg" class="h-10 brand-partner-img" alt="Netflix"/>
+              <img src="https://comifuro.net/wp-content/uploads/2020/11/logocf.png" class="h-10 brand-partner-img" alt="Comifuro"/>
+              <img src="https://seputarotaku.com/storage/thumbnail/thumbnail_1690466281_1671122855233_8944534.png" class="h-8 brand-partner-img" alt="Seputar Otaku"/>
+            </div>
+        </div>
+    </section>
+  </main>
+
+  <footer class="bg-background border-t-2 border-accent/20 text-textLight pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h4 class="font-heading text-2xl text-accent mb-4">TRANSMISI BERAKHIR</h4>
+        <p class="text-sm text-textLight/70 mb-2">Animenesia © 2025. Semua sistem berjalan normal.</p>
+        <p class="text-xs text-danger/50">Redesigned by Gemini_AI_Unit_7</p>
+        <div class="flex justify-center gap-5 mt-6 text-2xl">
+          <a href="mailto:info@animenesia.id" class="hover:text-accent hover:animate-glitch transition-colors">EMAIL</a>
+          <span class="text-accent/30">|</span>
+          <a href="https://wa.me/6281234567890" class="hover:text-accent hover:animate-glitch transition-colors">WHATSAPP</a>
+          <span class="text-accent/30">|</span>
+          <a href="https://instagram.com/animenesia.id" class="hover:text-accent hover:animate-glitch transition-colors">INSTAGRAM</a>
+        </div>
+    </div>
+  </footer>
+
+  <script>
+    // --- Mobile Menu (Not used in this design, but kept for compatibility) ---
+    // ... (previous menu script can be kept here)
+
+    // --- Gallery Infinite Scroll ---
+    const container = document.getElementById('galeri-container');
+    if (container) {
+      const items = Array.from(container.children);
+      items.forEach(item => {
+        const clone = item.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        container.appendChild(clone);
+      });
+    }
+
+    // --- Scroll Reveal Animation ---
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

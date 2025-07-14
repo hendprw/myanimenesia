@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Animenesia</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script>
+        // Konfigurasi Tailwind
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-900 text-gray-200 font-sans">
+    <div class="flex h-screen bg-gray-900">
+        <aside id="sidebar" class="w-64 bg-gray-800 text-white flex-shrink-0 flex flex-col justify-between p-4 transition-transform duration-300 ease-in-out fixed lg:relative h-full z-30 lg:translate-x-0 -translate-x-full">
+            <div>
+                <div class="text-2xl font-bold mb-10 px-2 text-blue">MyAnimenesia</div>
+                <nav id="main-menu">
+                    <a href="#" class="menu-item active" data-target="dashboard-utama">
+                        <i data-lucide="layout-dashboard"></i><span>Dashboard</span>
+                    </a>
+                    <a href="#" class="menu-item" data-target="keuangan-section">
+                        <i data-lucide="dollar-sign"></i><span>Mutasi Keuangan</span>
+                    </a>
+                    <a href="#" class="menu-item" data-target="dokumen-section">
+                        <i data-lucide="folder-kanban"></i><span>File Manager</span>
+                    </a>
+                    <a href="#" class="menu-item" data-target="sertifikat-section">
+                        <i data-lucide="award"></i><span>Cetak Sertifikat</span>
+                    </a>
+                    <a href="#" class="menu-item" data-target="mediapass-section">
+                        <i data-lucide="contact"></i><span>Cetak Media Pass</span>
+                    </a>
+                    <a href="#" id="menu-manajemen-user" class="menu-item hidden" data-target="admin-section">
+                        <i data-lucide="users"></i><span>Manajemen User</span>
+                    </a>
+                     </a>
+                    <a href="#" class="menu-item" data-target="profil-section">
+                        <i data-lucide="users"></i><span>Update Profile</span>
+                    </a>
+                </nav>
+            </div>
+           <div class="border-t border-gray-700 pt-4">
+    <div id="user-info" class="flex items-center px-2 mb-4">
+        <img id="user-avatar" class="w-10 h-10 rounded-full mr-3" src="" alt="Avatar">
+        
+        <div>
+            <p id="user-name" class="font-semibold leading-tight"></p>
+            <p id="user-role" class="text-sm text-gray-400"></p>
+        </div>
+    </div>
+    <button id="logoutButton" class="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 rounded-md py-2 transition-colors">
+        <i data-lucide="log-out" class="w-5 h-5"></i>
+        <span>Logout</span>
+    </button>
+</div>
+        </aside>
+
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <header class="bg-gray-800 border-b border-gray-700 p-4 flex justify-between items-center flex-shrink-0">
+                <button id="menu-toggle" class="lg:hidden text-white">
+                    <i data-lucide="menu"></i>
+                </button>
+                <h1 id="page-title" class="text-xl font-semibold text-white">Dashboard</h1>
+                <div class="w-8"></div> </header>
+
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-900 p-6">
+                
+                <section id="dashboard-utama" class="content-section">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                        <div class="stat-card"><div class="stat-icon bg-blue-500"><i data-lucide="users"></i></div><div><p class="stat-label">Total Anggota</p><p id="stats-user-count" class="stat-value">0</p></div></div>
+                        <div class="stat-card"><div class="stat-icon bg-purple-500"><i data-lucide="user-check"></i></div><div><p class="stat-label">Jumlah Pengurus</p><p id="stats-staff-count" class="stat-value">0</p></div></div>
+                        <div class="stat-card"><div class="stat-icon bg-green-500"><i data-lucide="wallet"></i></div><div><p class="stat-label">Saldo Kas</p><p id="stats-balance" class="stat-value">Rp 0</p></div></div>
+                        <div class="stat-card"><div class="stat-icon bg-yellow-500"><i data-lucide="file"></i></div><div><p class="stat-label">Total Dokumen</p><p id="stats-document-count" class="stat-value">0</p></div></div>
+                    </div>
+                  <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+    <h3 class="font-semibold text-lg mb-4">Grafik Keuangan 6 Bulan Terakhir</h3>
+    <div class="h-64 relative"> 
+        <canvas id="finance-chart"></canvas>
+    </div>
+</div>
+                </section>
+
+                <section id="keuangan-section" class="content-section hidden">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold">Mutasi Keuangan</h2>
+        <div class="flex gap-2">
+            <button id="export-csv-btn" class="action-btn bg-green-600 hover:bg-green-700">
+                <i data-lucide="download"></i><span>Ekspor ke CSV</span>
+            </button>
+            <button id="add-transaction-btn" class="action-btn bg-indigo-600 hover:bg-indigo-700 hidden">
+                <i data-lucide="plus"></i><span>Tambah Transaksi</span>
+            </button>
+        </div>
+    </div>
+    <div class="bg-gray-800 rounded-lg shadow overflow-hidden">
+        <table class="w-full table-responsive">
+            <thead class="bg-gray-700/50">
+                <tr>
+                    <th class="th-cell text-left">Tanggal</th>
+                    <th class="th-cell text-left">Deskripsi</th>
+                    <th class="th-cell text-left">Dibuat Oleh</th> <th class="th-cell text-left">Pemasukan</th>
+                    <th class="th-cell text-left">Pengeluaran</th>
+                    <th class="th-cell w-20">Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="transaction-table-body" class="divide-y divide-gray-700">
+                </tbody>
+        </table>
+    </div>
+</section>
+
+              <section id="dokumen-section" class="content-section hidden">
+    <div class="flex justify-between items-center mb-4 flex-wrap gap-4">
+        <h2 class="text-2xl font-bold">File Manager</h2>
+      <div id="file-manager-actions" class="flex gap-2">
+    <button id="rename-btn" class="action-btn bg-yellow-500 hover:bg-yellow-600 hidden"><i data-lucide="pencil"></i><span>Rename</span></button>
+    <a id="download-btn-link" href="#" download class="action-btn bg-blue-500 hover:bg-blue-600 hidden"><i data-lucide="download"></i><span>Download</span></a>
+    <button id="delete-btn" class="action-btn bg-red-600 hover:bg-red-700 hidden"><i data-lucide="trash-2"></i><span>Hapus</span></button>
+    
+    <button id="cancel-selection-btn" class="action-btn bg-gray-500 hover:bg-gray-600 hidden"><i data-lucide="x-circle"></i><span>Batal</span></button>
+    
+    <button id="create-folder-btn" class="action-btn bg-indigo-600 hover:bg-indigo-700"><i data-lucide="folder-plus"></i><span>Folder Baru</span></button>
+    <button id="upload-file-btn" class="action-btn bg-green-500 hover:bg-green-600"><i data-lucide="upload-cloud"></i><span>Upload File</span></button>
+</div>
+    </div>
+    <div id="breadcrumb" class="text-sm text-gray-400 mb-4 cursor-pointer">/ Root</div>
+    <div class="bg-gray-800 rounded-lg shadow overflow-x-auto">
+        <table class="w-full table-responsive">
+            <thead class="bg-gray-700/50">
+                <tr>
+                    <th class="th-cell w-12"></th>
+                    <th class="th-cell text-left">Nama</th>
+                    <th class="th-cell text-left">Diupload Oleh</th> <th class="th-cell text-left">Tanggal Modifikasi</th>
+                    <th class="th-cell text-left">Ukuran</th>
+                </tr>
+            </thead>
+            <tbody id="file-list-body" class="divide-y divide-gray-700"></tbody>
+        </table>
+    </div>
+</section>
+
+                <section id="sertifikat-section" class="content-section hidden">
+                     <h2 class="text-2xl font-bold mb-4">Generator Sertifikat</h2>
+                     <div class="max-w-md bg-gray-800 p-6 rounded-lg shadow-lg">
+                         <form id="certificateForm">
+                             <div class="input-group"><label for="certName">Nama di Sertifikat</label><input type="text" id="certName" required></div>
+                             <div class="input-group"><label for="certEvent">Nama Acara/Kegiatan</label><input type="text" id="certEvent" required></div>
+                             <div class="input-group"><label for="certRole">Peran (cth: Peserta, Panitia)</label><input type="text" id="certRole" value="Peserta" required></div>
+                             <button type="submit" class="w-full action-btn bg-indigo-600 hover:bg-indigo-700">Pratinjau & Cetak</button>
+                         </form>
+                     </div>
+                </section>
+
+                <section id="mediapass-section" class="content-section hidden">
+                    <h2 class="text-2xl font-bold mb-4">Generator Media Pass</h2>
+                     <div class="max-w-md bg-gray-800 p-6 rounded-lg shadow-lg">
+                         <form id="mediaPassForm">
+                             <div class="input-group"><label for="mediaName">Nama Jurnalis/Media</label><input type="text" id="mediaName" required></div>
+                             <div class="input-group"><label for="mediaOrigin">Asal Media</label><input type="text" id="mediaOrigin" required></div>
+                             <div class="input-group"><label for="mediaEvent">Acara yang Diliput</label><input type="text" id="mediaEvent" required></div>
+                             <button type="submit" class="w-full action-btn bg-teal-600 hover:bg-teal-700">Pratinjau & Cetak</button>
+                         </form>
+                     </div>
+                </section>
+                
+<section id="profil-section" class="content-section hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-1">
+            <div class="card-ui p-6 text-center">
+                <img id="profile-avatar-preview" src="/img/default-avatar.png" class="w-40 h-40 rounded-full mx-auto mb-4 border-4 border-gray-700">
+                <h3 id="profile-name-display" class="text-xl font-bold text-white"></h3>
+                <p id="profile-email-display" class="text-gray-400"></p>
+                <input type="file" id="avatar-input" class="hidden" accept="image/*">
+                <button id="change-avatar-btn" class="action-btn bg-indigo-600 hover:bg-indigo-700 w-full mt-4">Ubah Foto</button>
+            </div>
+        </div>
+
+        <div class="lg:col-span-2 space-y-6">
+            <div class="card-ui p-6">
+                <h3 class="text-lg font-semibold text-white mb-4">Informasi Pribadi</h3>
+                <form id="profile-info-form">
+                    <div class="input-group"><label for="profile-nama">Nama Lengkap</label><input type="text" id="profile-nama" required></div>
+                    <div class="input-group"><label for="profile-hp">Nomor HP</label><input type="tel" id="profile-hp"></div>
+                    <div class="input-group"><label for="profile-tentang">Tentang Saya</label><textarea id="profile-tentang" rows="3" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-md"></textarea></div>
+                    <div class="text-right"><button type="submit" class="action-btn bg-green-600 hover:bg-green-700">Simpan Informasi</button></div>
+                </form>
+            </div>
+            
+            <div id="change-password-card" class="card-ui p-6">
+                <h3 class="text-lg font-semibold text-white mb-4">Ubah Password</h3>
+                <form id="change-password-form">
+                    <div class="input-group"><label for="current-password">Password Saat Ini</label><input type="password" id="current-password" required></div>
+                    <div class="input-group"><label for="new-password">Password Baru</label><input type="password" id="new-password" required></div>
+                    <div class="text-right"><button type="submit" class="action-btn bg-yellow-500 hover:bg-yellow-600 text-gray-900">Ubah Password</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="admin-section" class="content-section hidden">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold">Manajemen User</h2>
+        <button id="add-user-btn" class="action-btn bg-indigo-600 hover:bg-indigo-700">
+            <i data-lucide="user-plus"></i><span>Tambah Pengurus</span>
+        </button>
+    </div>
+    <div class="bg-gray-800 rounded-lg shadow overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full table-responsive">
+                <thead class="bg-gray-700/50">
+                    <tr>
+                        <th class="th-cell text-left">Nama</th>
+                        <th class="th-cell text-left">Email</th>
+                        <th class="th-cell text-left">Role</th>
+                        <th class="th-cell text-left">Tanggal Bergabung</th>
+                        <th class="th-cell w-28">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="user-list-body" class="divide-y divide-gray-700">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+            </main>
+        </div>
+    </div>
+    
+    <div id="modal-backdrop" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden"></div>
+    <div id="main-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-800 border border-gray-700 rounded-lg shadow-xl z-50 w-full max-w-md p-6 hidden">
+        <div id="modal-content">
+            </div>
+    </div>
+
+    <script src="/js/dashboard.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
