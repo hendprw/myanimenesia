@@ -20,6 +20,7 @@ const { checkAuth, checkRole } = require('./middleware/auth');
 
 // --- INISIALISASI APP ---
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = 'ASUNAWANGY';
 
